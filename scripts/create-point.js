@@ -24,8 +24,10 @@ function getCities(event){
     fetch(url)
     .then(res=> res.json())
     .then(cities=>{
+        citySelect.innerHTML = ''
+        citySelect.disabled = true
         for(const city of cities){
-            citySelect.innerHTML += `<option value="${city.id}">${city.nome}</option>`
+            citySelect.innerHTML += `<option value="${city.value}">${city.nome}</option>`
         }    
         citySelect.disabled = false
     })
@@ -34,3 +36,34 @@ function getCities(event){
 document
     .querySelector('select[name = uf]')
     .addEventListener('change', getCities)
+
+
+let selectedItems = []   
+    //itens de coleta
+const itemsToCollect = document.querySelectorAll('.items-grid li')
+for(let item of itemsToCollect){
+    item.addEventListener('click', handleSelectedItem)
+}
+
+const colletctedItems = document.querySelector('input[name=items]')
+
+function handleSelectedItem(event){
+
+    const itemli = event.target
+    itemli.classList.toggle('selected')
+
+    const itemId = itemli.dataset.id
+
+    const alreadySelected = selectedItems.findIndex(item => item == itemId)
+    if(alreadySelected >= 0){
+        const filteredItems = selectedItems.filter(item => item != itemId)
+        selectedItems = filteredItems
+    }
+    else{
+        selectedItems.push(itemId)
+    }
+
+    
+    colletctedItems.value = selectedItems
+
+}
