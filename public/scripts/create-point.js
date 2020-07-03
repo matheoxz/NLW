@@ -27,7 +27,7 @@ function getCities(event){
         citySelect.innerHTML = ''
         citySelect.disabled = true
         for(const city of cities){
-            citySelect.innerHTML += `<option value="${city.value}">${city.nome}</option>`
+            citySelect.innerHTML += `<option value="${city.nome}">${city.nome}</option>`
         }    
         citySelect.disabled = false
     })
@@ -52,7 +52,7 @@ function handleSelectedItem(event){
     const itemli = event.target
     itemli.classList.toggle('selected')
 
-    const itemId = itemli.dataset.id
+    const itemId = itemli.dataset.id 
 
     const alreadySelected = selectedItems.findIndex(item => item == itemId)
     if(alreadySelected >= 0){
